@@ -2,6 +2,7 @@
   import store from '../store/store';
   import Suggester from './Suggester.vue';
   import { mapActions, mapGetters } from 'vuex';
+  import { ref } from 'vue';
 
   export default {
     mounted() {
@@ -36,18 +37,22 @@
     },
     data() {
       return {
-        city: '',
-        open: true
+        open: false,
+        inputRef: ref(null)
       };
     },
     methods: {
       ...mapActions(['getData', 'updateCities']),
-      onCitySelected(city) {
-        this.city = city;
-      },
       getData() {
-        console.log("Click")
-        this.$store.dispatch('getData', this.city);
+        this.$store.dispatch('getData', this.$store.state.city);
+      },
+      close() {
+        setTimeout(() => {
+          this.open = false;
+        }, 300);
+      },
+      setFocus() {
+        this.inputRef.focus();
       }
     },
   };
@@ -58,12 +63,15 @@
     <div id="d-flex">
       <input
         @focus="open = true"
-        @blur="open = false" 
-        v-model="city" placeholder="Enter any town to get weather" />
+        @blur="close"
+        :ref="ref => inputRef = ref"
+        v-model="$store.state.city" placeholder="Enter any town to get weather" 
+      />
       <Suggester
-        v-if="open && city.trim() !== ''"
-        :search-querry="city"
+        v-if="open && $store.state.city.trim() !== ''"
+        :search-querry="$store.state.city"
         class="suggestions"
+        :onSelect="setFocus"
       />
       <button>Find</button>
     </div>

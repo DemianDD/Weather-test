@@ -11,23 +11,23 @@
           c.name.toLowerCase().includes(this.searchQuerry.toLowerCase())
         );
       },
-      methods: {
-        handleCityClick(city) {
-          this.$store.dispatch('getData', city);
-        }
+      handleCityClick(newCity) {
+        this.onSelect();
+        this.$store.commit('updateCity', newCity);
       }
     },
     props: {
       searchQuerry: String,
+      onSelect: Function
     }
   };
 </script>
 
 <template>
-  <div>
+  <div @blur="handleClose">
     <li v-for="item in getSuggestedCities()" 
     :key="item.id" 
-    @click="handleCityClick(item)" 
+    @click="() => handleCityClick(item.name)" 
     class="suggest-element">
       <span >{{ item.name }}</span>
     </li>

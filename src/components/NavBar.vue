@@ -11,13 +11,13 @@
           <div v-for="(city, index) in this.$store.state.favorites" :key="index">
             <div class="city-list">
               <span class="nav-item" @click="$store.dispatch('getData', city)">{{ city }} </span>
-              <RemoveIcon class="component-fill" @click="showPopUp = true"/>
-              <div ><PopUp :show="showPopUp" :onConfirm="handleConfirm(city)" :onCancel="handleCancel" /></div>
+              <RemoveIcon class="component-fill" @click="() => openPopup(city)"/>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <PopUp :show="showPopUp" :on-confirm="() => handleConfirm(usedCity)" :on-cancel="handleCancel" />
 </template>
   
 <script>
@@ -30,7 +30,8 @@ import PopUp from './PopUp.vue';
     name: 'Navbar',
     data() {
       return {
-        showPopUp: false
+        showPopUp: false,
+        usedCity: ''
       };
     },  
     computed: {
@@ -42,7 +43,10 @@ import PopUp from './PopUp.vue';
     components: 
     { RemoveIcon, PopUp },
     methods: {
-
+      openPopup(city) {
+        this.usedCity = city;
+        this.showPopUp = true;
+      },
       handleConfirm(city) {
         this.$store.commit('removeFromFavorites', city);
         this.showPopUp = false;

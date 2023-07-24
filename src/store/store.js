@@ -5,13 +5,14 @@ const store = createStore({
       city: '',
       weatherData: null,
       forecastData: null,
-      favorites: JSON.parse(localStorage.getItem('favorites')),
+      favorites: JSON.parse(localStorage.getItem('favorites')) || [],
       apiKey: 'e9bbccc993d1d63441495536eb24650d',
       cities: [],
       loading: false,
     },
     mutations: {
       updateCity(state, city) {
+        console.log("raise", city)
         state.city = city;
       },
       setWeatherData(state, weatherData) {
@@ -42,6 +43,7 @@ const store = createStore({
     },
     actions: {
       async getData({ commit, state }, city) {
+        console.log(state)
         state.loading = true;
         console.log("run", city, state.apiKey)
         const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${state.apiKey}`;
