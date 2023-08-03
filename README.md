@@ -10,7 +10,7 @@ npm run dev
 
 ### Describe
 
-Weather application implemented by using Vue and Vuex. App include 2 sections. First section is resposible for weather forecast and include 3 blocks:
+Weather application implemented by using Vue and Vuex. App include 2 sections. First section is resposible for weather forecast in searched city and include 3 blocks:
 1 block - show current weather
 2 block - show 5 days weather
 3 block - chart which show todays weather in different hours
