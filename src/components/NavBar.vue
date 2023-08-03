@@ -10,11 +10,13 @@
         <div class="column-style">
           <div v-for="(city, index) in this.$store.state.favorites" :key="index">
             <div class="city-list">
-              <span class="nav-item" @click="$store.dispatch('getData', city)">{{ city }} </span>
+              <span class="nav-item" @click="() => navigateToCity(city)">{{ city }} </span>
               <RemoveIcon class="component-fill" @click="() => openPopup(city)"/>
             </div>
           </div>
         </div>
+
+        <router-link to="/trip" class="nav-trips">My trips</router-link>
       </div>
     </div>
     <PopUp :show="showPopUp" :on-confirm="() => handleConfirm(usedCity)" :on-cancel="handleCancel" />
@@ -51,16 +53,18 @@ import PopUp from './PopUp.vue';
         this.$store.commit('removeFromFavorites', city);
         this.showPopUp = false;
       },
-
       handleCancel() {
         this.showPopUp = false;
-      }
+      },
+      navigateToCity(city) {
+        this.$store.dispatch('getData', city);
+        this.$router.push('/'); 
+      },
     }
   }
 </script>
   
 <style>
-
   @media (max-width: 768px) {
     .navbar{
       width: 100% !important;
@@ -74,7 +78,8 @@ import PopUp from './PopUp.vue';
   }
   .navbar {
     width: 150px;
-    min-height: 35%;
+    max-height: 40%;
+    min-height: 25%;
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -85,6 +90,7 @@ import PopUp from './PopUp.vue';
     opacity: 90%;
     padding: 10px;
     border-radius: 0px 0px 0px 10px;
+    z-index: 1;
   }
 
   .nav-brand{
@@ -100,10 +106,26 @@ import PopUp from './PopUp.vue';
     transition: 0.2s;
   }
 
+  .nav-trips{
+    text-decoration: none;
+    color: white;
+    background-color: #0f1016;
+    font-size: 16px;
+    margin: 10px 0px;
+    padding: 5px 15px;
+    text-align: center;
+    border-radius: 10px;
+    transition: 0.2s;
+  }
+
+  .nav-trips:hover{
+    color: rgb(238, 220, 187);
+    transition: 0.2s;
+  }
+
   .city-list{
     width: 100%;
     display: flex;
-    padding: 5px;
     justify-content: center;
     color: #fff;
     cursor: pointer;
@@ -112,6 +134,7 @@ import PopUp from './PopUp.vue';
   }
   
   .nav-item {
+    padding: 5px;
     color: white;
     text-decoration: none;
     transition: 0.2s;

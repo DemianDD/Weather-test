@@ -97,16 +97,5 @@
     margin: 0;
     z-index: 2;
   }
-  .suggestions{
-    position: absolute;
-    top: 43px;
-    max-height: 200px;
-    padding: 5px;
-    background-color: white;
-    width: 78%;
-    border-radius: 6px;
-    opacity: 70%;
-    font-size: 12px;
-    overflow-y: auto;
-  }
+
 </style>

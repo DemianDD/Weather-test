@@ -36,26 +36,25 @@
 </script>
   
 <style>
-    .popup-container{
-        position: absolute;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 10px;
-        top: 50%;
-        z-index: 2;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 250px;
-        height: 150px;
-        background-color: #0f1016;
-        border: orange solid 2px;
-        border-radius: 10px;
-        color: #fff;
-    }
-
-    .button-flex{
-        display: flex;
-        justify-content: center;
-    }
+  .popup-container{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    top: 50%;
+    z-index: 2;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    height: 150px;
+    background-color: #0f1016;
+    border: orange solid 2px;
+    border-radius: 10px;
+    color: #fff;
+  }
+  .button-flex{
+    display: flex;
+    justify-content: center;
+  }
 </style>

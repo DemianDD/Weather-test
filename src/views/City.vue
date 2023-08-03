@@ -27,7 +27,15 @@ export default {
             .filter(item => this.formatDate(item.dt_txt) === date)
             .map(item => item.main.temp);
           const averageTemperature = Math.round(temperatures.reduce((total, temp) => total + temp, 0) / temperatures.length);
-          tableData.push(averageTemperature.toFixed(2));
+
+          const description = this.forecastData.list
+            .filter(item => this.formatDate(item.dt_txt) === date)
+            .map(item => item.weather[0].main);
+            
+          tableData.push({
+            description: description[0], 
+            averageTemperature: averageTemperature.toFixed(2)
+          });
         }
         return tableData;
       }
@@ -81,7 +89,8 @@ export default {
           <tbody>
             <tr>
               <td v-for="(temperature, index) in forecastTableData" :key="index">
-                <div>{{ temperature }}°C</div>
+                <div>{{ temperature.averageTemperature }}°C</div>
+                <div>{{ temperature.description }}</div>
               </td>
             </tr>
           </tbody>
@@ -131,20 +140,6 @@ export default {
     transform: translate(-50%, -50%);
   }
 
-  .position-align-center{
-    display: flex;
-    align-items: center;
-  }
-
-  .text-center{
-    text-align: center;
-  }
-
-  .temp-text{
-    color: white;
-    font-size: 50px;
-    font-weight: bold;
-  }
   .button-pos{
     position: absolute;
     top: 10px;
